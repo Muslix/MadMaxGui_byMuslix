@@ -18,6 +18,8 @@ namespace MadMaxGui.Helper
 
         public string Create()
         {
+            if (config is null)
+                return null;
             param += "-n 1";
             param += config.Threads is not null ? " -r " + config.Threads : " -r 4";
             param += config.Buckets is not null ? " -u " + config.Buckets : " -u 256";

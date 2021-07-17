@@ -45,7 +45,6 @@ namespace MadMaxGui.ViewModels
             set
             {
                 config = value;
-                MadmaxParam = "-n 1 -r " + Config.Threads + " -u " + Config.Buckets + " -v " + Config.BucketsPhaseThreeAndFour + " -t " + Config.TempDir + " -d " + Config.FinalDir + " -c " + Config.ContractKey + " -f " + Config.FarmerKey;
                 OnPropertyChanged();
             }
 
