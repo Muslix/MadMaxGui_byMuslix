@@ -5,11 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MadMaxGui"
         xmlns:controls="clr-namespace:MadMaxGui.Controls"
+        Background="{StaticResource BrushPrimary1}"
+        Foreground="{StaticResource BrushTextPrime}"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1200">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <controls:NavigationBar Grid.Row="0" DataContext="{Binding Navigator}"/>

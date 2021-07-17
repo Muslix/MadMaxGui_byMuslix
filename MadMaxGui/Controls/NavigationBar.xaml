@@ -11,27 +11,16 @@
              TextElement.FontSize="13"
              TextOptions.TextFormattingMode="Ideal"
              TextOptions.TextRenderingMode="Auto"
-             Background="{DynamicResource MaterialDesignBody}"
+             Background="{StaticResource BrushPrimary2}"
              FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="MadMax-Gui" Style="{DynamicResource MaterialDesignTitleTextBlock}"/>
-        <Grid Grid.Row="1" Background="{StaticResource BrushPrimary2}" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.2*"/>
-                <ColumnDefinition Width="0.2*"/>
-                <ColumnDefinition Width="0.2*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <Button Grid.Column="0" Style="{StaticResource  MaterialDesignFlatDarkBgButton}" Content="Home" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Home}" Background="#FF131215"/>
-            <Button Grid.Column="1" Style="{StaticResource  MaterialDesignFlatDarkBgButton}" Foreground="{StaticResource BrushTextPrime}" Background="{StaticResource BrushPrimary1}" Content="Settings" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Charakter}"/>
-            <Button Grid.Column="2" Style="{StaticResource  MaterialDesignFlatDarkBgButton}" Foreground="{StaticResource BrushTextPrime}" Background="{StaticResource BrushPrimary1}" Content="CommingSoon" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Stuff}" Cursor="Hand"/>
-        </Grid>
-    </Grid>
+    <StackPanel>
+        <TextBlock Text="MadMax-Gui" FontSize="20" Margin="20" Style="{DynamicResource MaterialDesignTitleTextBlock}"/>
+        <WrapPanel>
+            <Button Style="{StaticResource  MaterialDesignFlatDarkBgButton}" Content="Home" Command="{Binding UpdateCurrentViewModelCommand}" BorderBrush="{x:Null}" CommandParameter="{x:Static nav:ViewType.Home}" Background="#FF131215"/>
+            <Button Style="{StaticResource  MaterialDesignFlatDarkBgButton}" Foreground="{StaticResource BrushTextPrime}" Background="{StaticResource BrushPrimary1}" BorderBrush="{x:Null}" Content="Settings" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Charakter}"/>
+            <Button Style="{StaticResource  MaterialDesignFlatDarkBgButton}" Foreground="{StaticResource BrushTextPrime}" Background="{StaticResource BrushPrimary1}" BorderBrush="{x:Null}" Content="CommingSoon" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Stuff}" Cursor="Hand"/>
+        </WrapPanel>
+    </StackPanel>
 </UserControl>
