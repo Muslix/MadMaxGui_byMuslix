@@ -8,7 +8,7 @@
         Background="{StaticResource BrushPrimary1}"
         Foreground="{StaticResource BrushTextPrime}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1200">
+        Title="MainWindow" Height="900" Width="1400">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
