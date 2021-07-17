@@ -12,7 +12,7 @@
         WindowState="{Binding AktuellesFensterFormat}"
         AllowsTransparency="True"
         ResizeMode="CanResizeWithGrip"
-        Title="MainWindow" Height="900" Width="1400" WindowStyle="None">
+        Title="MadMaxGui_byMuslix" Height="900" Width="1400" WindowStyle="None">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>

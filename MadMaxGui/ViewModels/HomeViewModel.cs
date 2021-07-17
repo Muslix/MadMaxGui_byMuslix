@@ -51,8 +51,6 @@ namespace MadMaxGui.ViewModels
 
         }
 
-        //private string programmDir = @"C:\Users\Muslix\Desktop\chia neu\chia_plot.exe";
-       // private string param = @"-n 1 -r 8 -u 512 -v 256 -t E:\ -d I:\ -c xch1clr8dvslj78hd2ed8jp7nvz9xnv3x7k2scyxk9w7ac2lt5ykrfjshzfxau -f 82057077ba9e2a7bd1b62bcf5e49d95d5f6d91a49ff0c94b8fb642506a312d4642cc2b89d646dcc9088483daf965ac8f";
         private Process myProcess;
 
         public ICommand StartCommand { get; }
@@ -84,16 +82,19 @@ namespace MadMaxGui.ViewModels
             fileDialog.InitialDirectory = s;
             fileDialog.ShowDialog();
 
+            if (string.IsNullOrEmpty(fileDialog.FileName))
+                return;
             Config = loadSaveXml.loadData(fileDialog.FileName);
             ParamCreator creator = new ParamCreator(Config);
-            MadmaxParam = creator.Create();
-                //"-n 1 -r " + Config.Threads + " -u " + Config.Buckets + " -v " + Config.BucketsPhaseThreeAndFour + " -t " + Config.TempDir + " -d " + Config.FinalDir + " -c " + Config.ContractKey + " -f " + Config.FarmerKey;
+            MadmaxParam = creator.Create();           
         }
 
         private void StopCommandExecute(object obj)
         {
             try
             {
+                if (myProcess is null)
+                    return;
                 myProcess.Kill();
             }
             catch (Exception ew)
@@ -105,6 +106,8 @@ namespace MadMaxGui.ViewModels
 
         public void StartCommandExecute(object obj)
         {
+            if (MadmaxParam is null)
+                return;
             myProcess = new Process
             {
                 StartInfo = new ProcessStartInfo
@@ -118,19 +121,11 @@ namespace MadMaxGui.ViewModels
             };
             try
             {
-
                 myProcess.StartInfo.UseShellExecute = false;
                 myProcess.StartInfo.RedirectStandardOutput = true;
                 myProcess.OutputDataReceived += p_OutputDataReceived;
                 myProcess.Start();
-                myProcess.BeginOutputReadLine();
-
-
-                //var line = myProcess.StandardOutput.ReadLine();
-                //    MadMaxOutput += line;
-                    
-                
-               
+                myProcess.BeginOutputReadLine();                 
             }
             catch (Exception ew)
             {
