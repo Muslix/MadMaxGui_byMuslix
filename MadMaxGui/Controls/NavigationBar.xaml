@@ -19,7 +19,7 @@
         <TextBlock Text="MadMax-Gui" FontSize="20" Margin="20" Style="{DynamicResource MaterialDesignTitleTextBlock}"/>
         <WrapPanel>
             <Button Style="{StaticResource  MaterialDesignFlatDarkBgButton}" Content="Home" Command="{Binding UpdateCurrentViewModelCommand}" BorderBrush="{x:Null}" CommandParameter="{x:Static nav:ViewType.Home}" Background="#FF131215"/>
-            <Button Style="{StaticResource  MaterialDesignFlatDarkBgButton}" Foreground="{StaticResource BrushTextPrime}" Background="{StaticResource BrushPrimary1}" BorderBrush="{x:Null}" Content="Settings" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Charakter}"/>
+            <Button Style="{StaticResource  MaterialDesignFlatDarkBgButton}" Foreground="{StaticResource BrushTextPrime}" Background="{StaticResource BrushPrimary1}" BorderBrush="{x:Null}" Content="Settings" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Charakter}" Cursor="Hand"/>
             <Button Style="{StaticResource  MaterialDesignFlatDarkBgButton}" Foreground="{StaticResource BrushTextPrime}" Background="{StaticResource BrushPrimary1}" BorderBrush="{x:Null}" Content="CommingSoon" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Stuff}" Cursor="Hand"/>
         </WrapPanel>
     </StackPanel>

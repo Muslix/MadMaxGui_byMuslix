@@ -4,8 +4,12 @@
     <Color x:Key="ColorPrimary1">#171717</Color>
     <Color x:Key="ColorPrimary2">#262626</Color>
     <Color x:Key="ColorTextPrime">#FFFFFF</Color>
+    <Color x:Key="ColorButtonPrime1">#B52A2A</Color>
+    <Color x:Key="ColorButtonPrime2">#3F9624</Color>
 
     <SolidColorBrush x:Key="BrushPrimary1" Color="{StaticResource ColorPrimary1}"/>
     <SolidColorBrush x:Key="BrushPrimary2" Color="{StaticResource ColorPrimary2}"/>
     <SolidColorBrush x:Key="BrushTextPrime" Color="{StaticResource ColorTextPrime}"/>
+    <SolidColorBrush x:Key="BrushButtonPrime1" Color="{StaticResource ColorButtonPrime1}"/>
+    <SolidColorBrush x:Key="BrushButtonPrime2" Color="{StaticResource ColorButtonPrime2}"/>
 </ResourceDictionary>

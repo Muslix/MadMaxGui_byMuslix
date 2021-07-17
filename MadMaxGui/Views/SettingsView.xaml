@@ -3,10 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:MadMaxGui.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid ShowGridLines="True">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1.2*"/>
             <RowDefinition Height="*"/>
@@ -14,41 +15,57 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" VerticalAlignment="Center" ShowGridLines="True">
+        <Grid Grid.Row="0" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="0.3*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Grid.Row="0" HorizontalAlignment="Center">
-                <TextBlock Text="MadMax Dir" HorizontalAlignment="Left"/>
-                <TextBox Grid.Row="0" Text="{Binding MadmaxDir,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="300" HorizontalAlignment="Left"/>
-                <TextBlock Text="Contract Key" HorizontalAlignment="Left"/>
-                <TextBox Grid.Row="0" Text="{Binding ContractKey,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="300" HorizontalAlignment="Left"/>
-                <TextBlock Text="Farmer Key" HorizontalAlignment="Left"/>
-                <TextBox Grid.Row="0" Text="{Binding FarmerKey,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="300" HorizontalAlignment="Left"/>
+                <TextBox Grid.Row="0" materialDesign:HintAssist.Hint="MadMax Dir" Style="{StaticResource MaterialDesignFloatingHintTextBox}" BorderBrush="{StaticResource BrushTextPrime}" 
+                         Text="{Binding MadmaxDir,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                         Width="300" HorizontalAlignment="Left" Cursor="IBeam"/>
+                <TextBox Grid.Row="0" materialDesign:HintAssist.Hint="Contract Key" Style="{StaticResource MaterialDesignFloatingHintTextBox}" BorderBrush="{StaticResource BrushTextPrime}" 
+                         Text="{Binding ContractKey,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                         Width="300" HorizontalAlignment="Left" Cursor="IBeam"/>
+                <TextBox Grid.Row="0" materialDesign:HintAssist.Hint="Farmer Key" Style="{StaticResource MaterialDesignFloatingHintTextBox}" BorderBrush="{StaticResource BrushTextPrime}" 
+                         Text="{Binding FarmerKey,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                         Width="300" HorizontalAlignment="Left"/>
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center">
-                <TextBlock Text="TempDir" HorizontalAlignment="Left"/>
-                <TextBox Grid.Row="0" Text="{Binding TempDir,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="300" HorizontalAlignment="Left"/>
-               <TextBlock Text="TempDir2" HorizontalAlignment="Left"/>
-                <TextBox Grid.Row="0" Text="{Binding TempDir2,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="300" HorizontalAlignment="Left"/>
-                <TextBlock Text="FinalDir" HorizontalAlignment="Left"/>
-                <TextBox Grid.Row="0" Text="{Binding FinalDir,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="300" HorizontalAlignment="Left"/>
+                <TextBox Grid.Row="0" materialDesign:HintAssist.Hint="TempDir" Style="{StaticResource MaterialDesignFloatingHintTextBox}" BorderBrush="{StaticResource BrushTextPrime}" 
+                         Text="{Binding TempDir,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                         Width="300" HorizontalAlignment="Left"/>
+                <TextBox Grid.Row="0" materialDesign:HintAssist.Hint="TempDir2" Style="{StaticResource MaterialDesignFloatingHintTextBox}" BorderBrush="{StaticResource BrushTextPrime}" 
+                         Text="{Binding TempDir2,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                         Width="300" HorizontalAlignment="Left"/>
+                <TextBox Grid.Row="0" materialDesign:HintAssist.Hint="FinalDir" Style="{StaticResource MaterialDesignFloatingHintTextBox}" BorderBrush="{StaticResource BrushTextPrime}"
+                         Text="{Binding FinalDir,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                         Width="300" HorizontalAlignment="Left" Cursor="IBeam"/>
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="3">
-                <Button Grid.Row="0" Grid.Column="3" Content="Save" Width="50" Height="30" Command="{Binding Path=SaveCommand}" Margin="12"/>
-                <Button Grid.Row="0" Grid.Column="3" Content="Load" Width="50" Height="30" Command="{Binding Path=LoadCommand}"/>
+                <Button Grid.Row="0" Grid.Column="3" Style="{StaticResource  MaterialDesignFlatDarkBgButton}"  BorderBrush="{x:Null}" Foreground="{StaticResource BrushTextPrime}" Background="{StaticResource BrushButtonPrime2}"
+                        Content="Save" Width="70" Height="30" Command="{Binding Path=SaveCommand}" Margin="12" Cursor="Hand"/>
+                <Button Grid.Row="0" Grid.Column="3" Style="{StaticResource  MaterialDesignFlatDarkBgButton}" BorderBrush="{x:Null}" Foreground="{StaticResource BrushTextPrime}" Background="{StaticResource BrushPrimary2}"
+                        Content="Load" Width="70" Height="30" Command="{Binding Path=LoadCommand}" Cursor="Hand"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1">
-            <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="25 0 0 0">
-                <TextBlock Text="Threads" HorizontalAlignment="Left"/>
-                <TextBox Grid.Row="0" Text="{Binding Threads,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="300" HorizontalAlignment="Left"/>
-                <TextBlock Text="Buckets" HorizontalAlignment="Left"/>
-                <TextBox Grid.Row="0" Text="{Binding Buckets,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="300" HorizontalAlignment="Left"/>
-                <TextBlock Text="Buckets in Phase 3 + 4" HorizontalAlignment="Left"/>
-                <TextBox Grid.Row="0" Text="{Binding BucketsPhaseThreeAndFour,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="300" HorizontalAlignment="Left"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.3*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBox Grid.Row="0" materialDesign:HintAssist.Hint="Threads" Style="{StaticResource MaterialDesignFloatingHintTextBox}" BorderBrush="{StaticResource BrushTextPrime}"                   
+                         Text="{Binding Threads,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                         Width="300" HorizontalAlignment="Left" Cursor="IBeam"/>
+                <TextBox Grid.Row="0" materialDesign:HintAssist.Hint="Buckets" Style="{StaticResource MaterialDesignFloatingHintTextBox}" BorderBrush="{StaticResource BrushTextPrime}"
+                         Text="{Binding Buckets,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
+                         Width="300" HorizontalAlignment="Left" Cursor="IBeam"/>
+                <TextBox Grid.Row="0" materialDesign:HintAssist.Hint="Buckets in Phase 3 + 4"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" BorderBrush="{StaticResource BrushTextPrime}"
+                         Text="{Binding BucketsPhaseThreeAndFour,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                         Width="300" HorizontalAlignment="Left" Cursor="IBeam"/>
             </StackPanel>
         </Grid>
         <Grid Grid.Row="2">

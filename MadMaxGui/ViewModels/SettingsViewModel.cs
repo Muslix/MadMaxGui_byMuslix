@@ -147,6 +147,8 @@ namespace MadMaxGui.ViewModels
 
             Config = loadSaveXml.loadData(fileDialog.FileName);
 
+            if (Config is null)
+                return;
             MadmaxDir = Config.MadmaxDir;
             TempDir = Config.TempDir;
             TempDir2 = Config.TempDir2;
