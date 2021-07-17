@@ -179,8 +179,7 @@ namespace MadMaxGui.ViewModels
             Config.Buckets = Buckets;
             Config.BucketsPhaseThreeAndFour = BucketsPhaseThreeAndFour;
             Config.Threads = Threads;
-            loadSaveXml.savedata(config, fileDialog.FileName);
-            //  MadmaxParam = "-n 1 -r 8 -u 512 -v 256 -t " + TempDir + " -d " + FinalDir + " -c " + ContractKey + " -f " + FarmerKey;
+            loadSaveXml.savedata(config, fileDialog.FileName);          
         }
 
         public override Config GetConfig()
