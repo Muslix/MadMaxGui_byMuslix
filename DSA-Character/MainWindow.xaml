@@ -1,0 +1,18 @@
+﻿<Window x:Class="MadMaxGui.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MadMaxGui"
+        xmlns:controls="clr-namespace:MadMaxGui.Controls"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <controls:NavigationBar Grid.Row="0" DataContext="{Binding Navigator}"/>
+        <ContentControl Grid.Row="1" Content="{Binding Navigator.CurrentViewModel}"/>
+    </Grid>
+</Window>
