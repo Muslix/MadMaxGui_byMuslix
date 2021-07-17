@@ -24,5 +24,10 @@ namespace MadMaxGui
         { 
             InitializeComponent();
         }
+        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseLeftButtonDown(e);
+            DragMove();
+        }
     }
 }

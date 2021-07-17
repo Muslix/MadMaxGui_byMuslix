@@ -3,18 +3,43 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:MadMaxGui"
         xmlns:controls="clr-namespace:MadMaxGui.Controls"
         Background="{StaticResource BrushPrimary1}"
         Foreground="{StaticResource BrushTextPrime}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="900" Width="1400">
+        WindowState="{Binding AktuellesFensterFormat}"
+        AllowsTransparency="True"
+        ResizeMode="CanResizeWithGrip"
+        Title="MainWindow" Height="900" Width="1400" WindowStyle="None">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
             <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <controls:NavigationBar Grid.Row="0" DataContext="{Binding Navigator}"/>
-        <ContentControl Grid.Row="1" Content="{Binding Navigator.CurrentViewModel}"/>
+        <Grid Grid.Row="0" Background="{StaticResource BrushPrimary2}">
+            <WrapPanel Grid.Row="0" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" >
+            <!--<TextBlock Foreground="{Binding DarkandWhite.FontColors}" FontWeight="Bold" Margin="0 5 15 0">
+                        Light
+            </TextBlock>
+            <ToggleButton Margin="0 0 15 0" Background="#282827" Command="{Binding SwitchThemeCommand}" IsChecked="{Binding ThemeSwitchState}"/>
+            <TextBlock Foreground="{Binding DarkandWhite.FontColors}" FontWeight="Bold" Margin="0 5 15 0">
+                        Dark
+            </TextBlock>-->
+            <Button Margin="5 0 5 0" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="{StaticResource BrushTextPrime}" Command="{Binding MinimizeCommand}">
+                <materialDesign:PackIcon Kind="WindowMinimize"/>
+            </Button>
+            <Button Margin="5 0 5 0" Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="{StaticResource BrushTextPrime}" Command="{Binding MaximizeCommand}">
+                <materialDesign:PackIcon Kind="WindowMaximize"/>
+            </Button>
+            <Button Width="30" Height="30" Background="{x:Null}" BorderBrush="{x:Null}" Padding="0" Foreground="{StaticResource BrushTextPrime}" Command="{Binding ShutdownCommand}">
+                <materialDesign:PackIcon Kind="Close"/>
+            </Button>
+        </WrapPanel>
+        </Grid>
+        <controls:NavigationBar Grid.Row="1" DataContext="{Binding Navigator}"/>
+        <ContentControl Grid.Row="2" Content="{Binding Navigator.CurrentViewModel}"/>
     </Grid>
 </Window>
