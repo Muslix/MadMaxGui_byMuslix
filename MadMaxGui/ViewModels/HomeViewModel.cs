@@ -49,6 +49,7 @@ namespace MadMaxGui.ViewModels
             }
 
         }
+        public ParamCreator Creator = new ParamCreator();
 
         private Process myProcess;
 
@@ -69,6 +70,7 @@ namespace MadMaxGui.ViewModels
         public override void SetConfig(Config config) 
         {
             Config = config;
+            MadmaxParam = Creator.Create(Config);
         }
 
         //Commands
@@ -84,8 +86,7 @@ namespace MadMaxGui.ViewModels
             if (string.IsNullOrEmpty(fileDialog.FileName))
                 return;
             Config = loadSaveXml.loadData(fileDialog.FileName);
-            ParamCreator creator = new ParamCreator(Config);
-            MadmaxParam = creator.Create();           
+            MadmaxParam = Creator.Create(Config);           
         }
 
         private void StopCommandExecute(object obj)

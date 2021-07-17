@@ -16,6 +16,8 @@
             <Button Content="Stop" Margin="10" Height="30" Command="{Binding Path=StopCommand}"/>
             <Button Content="Load" Margin="10" Command="{Binding Path=LoadXmlCommand}"/>
         </WrapPanel>
+        <ScrollViewer  Grid.Row="1">
         <TextBlock Grid.Row="1" Text="{Binding MadMaxOutput,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+        </ScrollViewer>
     </Grid>
 </UserControl>

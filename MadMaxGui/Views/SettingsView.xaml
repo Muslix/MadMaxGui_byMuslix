@@ -61,17 +61,22 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="0.3*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center">
-                <TextBox Grid.Row="0" materialDesign:HintAssist.Hint="Threads" Style="{StaticResource MaterialDesignFloatingHintTextBox}" BorderBrush="{StaticResource BrushTextPrime}"                   
+                <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center">
+                    <TextBox Grid.Row="0" materialDesign:HintAssist.Hint="Number of Plots to Create"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" BorderBrush="{StaticResource BrushTextPrime}"
+                         Text="{Binding NumberOfPlots,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                         Width="300" HorizontalAlignment="Left"/>
+                    <TextBox Grid.Row="0" materialDesign:HintAssist.Hint="Threads" Style="{StaticResource MaterialDesignFloatingHintTextBox}" BorderBrush="{StaticResource BrushTextPrime}"                   
                          Text="{Binding Threads,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                          Width="300" HorizontalAlignment="Left"/>
+                </StackPanel>
+                <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center">
                 <TextBox Grid.Row="0" materialDesign:HintAssist.Hint="Buckets" Style="{StaticResource MaterialDesignFloatingHintTextBox}" BorderBrush="{StaticResource BrushTextPrime}"
                          Text="{Binding Buckets,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                          Width="300" HorizontalAlignment="Left"/>
-                <TextBox Grid.Row="0" materialDesign:HintAssist.Hint="Buckets in Phase 3 + 4"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" BorderBrush="{StaticResource BrushTextPrime}"
+                    <TextBox Grid.Row="0" materialDesign:HintAssist.Hint="Buckets in Phase 3 + 4"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" BorderBrush="{StaticResource BrushTextPrime}"
                          Text="{Binding BucketsPhaseThreeAndFour,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                          Width="300" HorizontalAlignment="Left"/>
-            </StackPanel>
+                </StackPanel>
         </Grid>
         </materialDesign:Card>
         <!--Third Row -->

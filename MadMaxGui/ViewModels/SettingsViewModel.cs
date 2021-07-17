@@ -113,6 +113,17 @@ namespace MadMaxGui.ViewModels
             }
 
         }
+        private string numberOfPlots = "1";
+        public string NumberOfPlots
+        {
+            get => numberOfPlots;
+            set
+            {
+                numberOfPlots = value;
+                OnPropertyChanged();
+            }
+
+        }
         private Config config = new ();
 
         public Config Config 
@@ -158,6 +169,7 @@ namespace MadMaxGui.ViewModels
             Buckets = Config.Buckets;
             BucketsPhaseThreeAndFour = Config.BucketsPhaseThreeAndFour;
             Threads = Config.Threads;
+            NumberOfPlots = Config.NumberOfPLots;
         }
 
         //Zum Speichern der Settings
@@ -179,12 +191,18 @@ namespace MadMaxGui.ViewModels
             Config.Buckets = Buckets;
             Config.BucketsPhaseThreeAndFour = BucketsPhaseThreeAndFour;
             Config.Threads = Threads;
+            Config.NumberOfPLots = NumberOfPlots;
             loadSaveXml.savedata(config, fileDialog.FileName);          
         }
 
         public override Config GetConfig()
         {
-            return Config;
+            if (Config.GetType()
+                 .GetProperties() //get all properties on object
+                 .Select(pi => pi.GetValue(Config)) //get value for the property
+                 .Any(value => value != null))
+                return Config;
+            return null;
         }
     }
 }

@@ -39,13 +39,14 @@ namespace MadMaxGui.Commands
                     case ViewType.Home:
                         Config confTmp = null;
                         if (navigator.CurrentViewModel is SettingsViewModel)
-                        {
+                        {                           
                             confTmp = navigator.CurrentViewModel.GetConfig();
                         }
                            navigator.CurrentViewModel = kernel.Get<HomeViewModel>();
                         if (confTmp != null)
                         {
                             navigator.CurrentViewModel.SetConfig(confTmp);
+                            
                         }
                         
                         break;

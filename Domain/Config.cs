@@ -18,6 +18,7 @@ namespace Domain
         private string threads;
         private string buckets;
         private string bucketsPhaseThreeAndFour;
+        private string numberOfPLots;
 
 
         public string MadmaxDir { get => madmaxDir; set => madmaxDir = value; }
@@ -29,5 +30,6 @@ namespace Domain
         public string Threads { get => threads; set => threads = value; }
         public string Buckets { get => buckets; set => buckets = value; }
         public string BucketsPhaseThreeAndFour { get => bucketsPhaseThreeAndFour; set => bucketsPhaseThreeAndFour = value; }
+        public string NumberOfPLots { get => numberOfPLots; set => numberOfPLots = value; }
     }
 }

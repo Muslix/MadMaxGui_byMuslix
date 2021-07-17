@@ -9,18 +9,17 @@ namespace MadMaxGui.Helper
 {
     public class ParamCreator
     {
-        private Config config;
+        
         private string param;
-        public ParamCreator(Config config)
+        public ParamCreator()
         {
-            this.config = config;
         }
 
-        public string Create()
+        public string Create(Config config)
         {
             if (config is null)
                 return null;
-            param += "-n 1";
+            param += config.NumberOfPLots is not null ? "-n " + config.NumberOfPLots : "-n 1";
             param += config.Threads is not null ? " -r " + config.Threads : " -r 4";
             param += config.Buckets is not null ? " -u " + config.Buckets : " -u 256";
             param += config.BucketsPhaseThreeAndFour is not null ? " -v " + config.BucketsPhaseThreeAndFour : "";
