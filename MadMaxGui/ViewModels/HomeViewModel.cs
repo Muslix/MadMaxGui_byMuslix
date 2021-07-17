@@ -84,6 +84,8 @@ namespace MadMaxGui.ViewModels
             fileDialog.InitialDirectory = s;
             fileDialog.ShowDialog();
 
+            if (string.IsNullOrEmpty(fileDialog.FileName))
+                return;
             Config = loadSaveXml.loadData(fileDialog.FileName);
             ParamCreator creator = new ParamCreator(Config);
             MadmaxParam = creator.Create();
@@ -94,6 +96,8 @@ namespace MadMaxGui.ViewModels
         {
             try
             {
+                if (myProcess is null)
+                    return;
                 myProcess.Kill();
             }
             catch (Exception ew)
@@ -105,6 +109,8 @@ namespace MadMaxGui.ViewModels
 
         public void StartCommandExecute(object obj)
         {
+            if (MadmaxParam is null)
+                return;
             myProcess = new Process
             {
                 StartInfo = new ProcessStartInfo

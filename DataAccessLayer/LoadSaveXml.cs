@@ -11,7 +11,7 @@ namespace DataAccessLayer
 {
     public class LoadSaveXml : ILoadSaveXml
     {
-        public Config loadData( string filename)
+        public Config loadData(string filename)
         {
             XmlSerializer sr = new XmlSerializer(typeof(Config));
             TextReader reader = new StreamReader(filename);

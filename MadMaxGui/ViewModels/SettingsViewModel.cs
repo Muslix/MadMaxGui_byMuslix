@@ -145,10 +145,10 @@ namespace MadMaxGui.ViewModels
             fileDialog.InitialDirectory = s;
             fileDialog.ShowDialog();
 
+            if (string.IsNullOrEmpty(fileDialog.FileName))
+                return;
             Config = loadSaveXml.loadData(fileDialog.FileName);
 
-            if (Config is null)
-                return;
             MadmaxDir = Config.MadmaxDir;
             TempDir = Config.TempDir;
             TempDir2 = Config.TempDir2;
@@ -164,10 +164,12 @@ namespace MadMaxGui.ViewModels
         private void SaveCommandExecute(object obj)
         {
             var s = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            FileDialog fileDialog = new OpenFileDialog();
+            SaveFileDialog fileDialog = new SaveFileDialog();
+            fileDialog.Filter = "Xml Files (*.xml)|*.xml|All files (*.*)|*.*";
             fileDialog.InitialDirectory = s;
             fileDialog.ShowDialog();
-
+            if (string.IsNullOrEmpty(fileDialog.FileName))
+                return;
             Config.MadmaxDir = MadmaxDir;
             Config.TempDir = TempDir;
             Config.TempDir2 = TempDir2;
