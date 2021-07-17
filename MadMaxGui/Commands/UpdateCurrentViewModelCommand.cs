@@ -1,4 +1,5 @@
-﻿using MadMaxGui.State.Navigators;
+﻿using Domain;
+using MadMaxGui.State.Navigators;
 using MadMaxGui.ViewModels;
 using Ninject;
 using System;
@@ -34,7 +35,17 @@ namespace MadMaxGui.Commands
                 switch (viewType)
                 {
                     case ViewType.Home:
-                        navigator.CurrentViewModel = kernel.Get<HomeViewModel>();
+                        Config confTmp = null;
+                        if (navigator.CurrentViewModel is SettingsViewModel)
+                        {
+                            confTmp = navigator.CurrentViewModel.GetConfig();
+                        }
+                           navigator.CurrentViewModel = kernel.Get<HomeViewModel>();
+                        if (confTmp != null)
+                        {
+                            navigator.CurrentViewModel.SetConfig(confTmp);
+                        }
+                        
                         break;
                     case ViewType.Charakter:
                         navigator.CurrentViewModel = kernel.Get <SettingsViewModel>();

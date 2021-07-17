@@ -19,10 +19,11 @@ namespace MadMaxGui.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public virtual IKernel GetKernel()
+        public virtual Config GetConfig()
         {
             return null;
         }
+        public virtual void SetConfig(Config config) { }
 
     }
 }

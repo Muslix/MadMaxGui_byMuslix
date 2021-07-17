@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
-    <RootNamespace>DSA_Character</RootNamespace>
+    <RootNamespace>MadMaxGui</RootNamespace>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 

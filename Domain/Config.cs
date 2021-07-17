@@ -15,6 +15,10 @@ namespace Domain
         private string tempDir;
         private string tempDir2;
         private string finalDir;
+        private string threads;
+        private string buckets;
+        private string bucketsPhaseThreeAndFour;
+
 
         public string MadmaxDir { get => madmaxDir; set => madmaxDir = value; }
         public string ContractKey { get => contractKey; set => contractKey = value; }
@@ -22,5 +26,8 @@ namespace Domain
         public string TempDir { get => tempDir; set => tempDir = value; }
         public string TempDir2 { get => tempDir2; set => tempDir2 = value; }
         public string FinalDir { get => finalDir; set => finalDir = value; }
+        public string Threads { get => threads; set => threads = value; }
+        public string Buckets { get => buckets; set => buckets = value; }
+        public string BucketsPhaseThreeAndFour { get => bucketsPhaseThreeAndFour; set => bucketsPhaseThreeAndFour = value; }
     }
 }

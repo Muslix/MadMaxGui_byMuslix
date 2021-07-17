@@ -80,6 +80,51 @@ namespace MadMaxGui.ViewModels
             }
 
         }
+        private string bucketsPhaseThreeAndFour;
+        public string BucketsPhaseThreeAndFour
+        {
+            get => bucketsPhaseThreeAndFour;
+            set
+            {
+                bucketsPhaseThreeAndFour = value;
+                OnPropertyChanged();
+            }
+
+        }
+        private string buckets = "256";
+        public string Buckets
+        {
+            get => buckets;
+            set
+            {
+                buckets = value;
+                OnPropertyChanged();
+            }
+
+        }
+        private string threads = "8";
+        public string Threads
+        {
+            get => threads;
+            set
+            {
+                threads = value;
+                OnPropertyChanged();
+            }
+
+        }
+        private Config config;
+
+        public Config Config
+        {
+            get => config;
+            set
+            {
+                config = value;
+                OnPropertyChanged();
+            }
+
+        }
         public ICommand SaveCommand { get; }
         public ICommand LoadCommand { get; }
         private readonly ILoadSaveXml loadSaveXml;
@@ -93,21 +138,24 @@ namespace MadMaxGui.ViewModels
         //Zum Laden der Settings 
         private void LoadCommandExecute(object obj)
         {
-           var s = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            var s = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
             FileDialog fileDialog = new OpenFileDialog();
             fileDialog.Filter = "Xml Files (*.xml)|*.xml|All files (*.*)|*.*";
             fileDialog.InitialDirectory = s;
             fileDialog.ShowDialog();
-             
-            Config config = loadSaveXml.loadData(fileDialog.FileName);
 
-            MadmaxDir = config.MadmaxDir;
-            TempDir = config.TempDir;
-            TempDir2 = config.TempDir2;
-            FinalDir = config.FinalDir;
-            FarmerKey = config.FarmerKey;
-            ContractKey = config.ContractKey;
+            Config = loadSaveXml.loadData(fileDialog.FileName);
+
+            MadmaxDir = Config.MadmaxDir;
+            TempDir = Config.TempDir;
+            TempDir2 = Config.TempDir2;
+            FinalDir = Config.FinalDir;
+            FarmerKey = Config.FarmerKey;
+            ContractKey = Config.ContractKey;
+            Buckets = Config.Buckets;
+            BucketsPhaseThreeAndFour = Config.BucketsPhaseThreeAndFour;
+            Threads = Config.Threads;
         }
 
         //Zum Speichern der Settings
@@ -116,16 +164,22 @@ namespace MadMaxGui.ViewModels
             FileDialog fileDialog = new OpenFileDialog();
             fileDialog.ShowDialog();
 
-            Config config = new Config();
-            config.MadmaxDir = MadmaxDir;
-            config.TempDir = TempDir;
-            config.TempDir2 = TempDir2;
-            config.FinalDir = FinalDir;
-            config.FarmerKey = FarmerKey;
-            config.ContractKey = ContractKey;
-
+            Config.MadmaxDir = MadmaxDir;
+            Config.TempDir = TempDir;
+            Config.TempDir2 = TempDir2;
+            Config.FinalDir = FinalDir;
+            Config.FarmerKey = FarmerKey;
+            Config.ContractKey = ContractKey;
+            Config.Buckets = Buckets;
+            Config.BucketsPhaseThreeAndFour = BucketsPhaseThreeAndFour;
+            Config.Threads = Threads;
             loadSaveXml.savedata(config, fileDialog.FileName);
             //  MadmaxParam = "-n 1 -r 8 -u 512 -v 256 -t " + TempDir + " -d " + FinalDir + " -c " + ContractKey + " -f " + FarmerKey;
+        }
+
+        public override Config GetConfig()
+        {
+            return Config;
         }
     }
 }
