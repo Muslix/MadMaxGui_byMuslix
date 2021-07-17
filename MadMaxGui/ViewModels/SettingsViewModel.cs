@@ -113,9 +113,9 @@ namespace MadMaxGui.ViewModels
             }
 
         }
-        private Config config;
+        private Config config = new ();
 
-        public Config Config
+        public Config Config 
         {
             get => config;
             set
@@ -163,7 +163,9 @@ namespace MadMaxGui.ViewModels
         //Zum Speichern der Settings
         private void SaveCommandExecute(object obj)
         {
+            var s = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             FileDialog fileDialog = new OpenFileDialog();
+            fileDialog.InitialDirectory = s;
             fileDialog.ShowDialog();
 
             Config.MadmaxDir = MadmaxDir;
