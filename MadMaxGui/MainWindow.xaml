@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:MadMaxGui"
         xmlns:controls="clr-namespace:MadMaxGui.Controls"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="800" Width="1200">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.1*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <controls:NavigationBar Grid.Row="0" DataContext="{Binding Navigator}"/>

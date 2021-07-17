@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:MadMaxGui.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid ShowGridLines="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="1.2*"/>
             <RowDefinition Height="*"/>
@@ -14,7 +14,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" VerticalAlignment="Center" ShowGridLines="True">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -36,9 +36,10 @@
                 <TextBlock Text="FinalDir" HorizontalAlignment="Left"/>
                 <TextBox Grid.Row="0" Text="{Binding FinalDir,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="300" HorizontalAlignment="Left"/>
             </StackPanel>
-            <StackPanel Grid.Row="0" Grid.Column="3" >
-                <Button Grid.Row="0" Grid.Column="3" Content="Save" Width="50" Height="30" Command="{Binding Path=SaveCommand}"/>
+            <StackPanel Grid.Row="0" Grid.Column="3">
+                <Button Grid.Row="0" Grid.Column="3" Content="Save" Width="50" Height="30" Command="{Binding Path=SaveCommand}" Margin="12"/>
                 <Button Grid.Row="0" Grid.Column="3" Content="Load" Width="50" Height="30" Command="{Binding Path=LoadCommand}"/>
+                
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1">

@@ -1,9 +1,11 @@
 ﻿
 using Domain;
 using MadMaxGui.Commands;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -88,9 +90,17 @@ namespace MadMaxGui.ViewModels
             this.loadSaveXml = loadSaveXml;
         }
 
+        //Zum Laden der Settings 
         private void LoadCommandExecute(object obj)
         {
-            Config config = loadSaveXml.loadData("test.xml");
+           var s = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+
+            FileDialog fileDialog = new OpenFileDialog();
+            fileDialog.Filter = "Xml Files (*.xml)|*.xml|All files (*.*)|*.*";
+            fileDialog.InitialDirectory = s;
+            fileDialog.ShowDialog();
+             
+            Config config = loadSaveXml.loadData(fileDialog.FileName);
 
             MadmaxDir = config.MadmaxDir;
             TempDir = config.TempDir;
@@ -100,8 +110,11 @@ namespace MadMaxGui.ViewModels
             ContractKey = config.ContractKey;
         }
 
+        //Zum Speichern der Settings
         private void SaveCommandExecute(object obj)
         {
+            FileDialog fileDialog = new OpenFileDialog();
+            fileDialog.ShowDialog();
 
             Config config = new Config();
             config.MadmaxDir = MadmaxDir;
@@ -111,7 +124,7 @@ namespace MadMaxGui.ViewModels
             config.FarmerKey = FarmerKey;
             config.ContractKey = ContractKey;
 
-            loadSaveXml.savedata(config, "test.xml");
+            loadSaveXml.savedata(config, fileDialog.FileName);
             //  MadmaxParam = "-n 1 -r 8 -u 512 -v 256 -t " + TempDir + " -d " + FinalDir + " -c " + ContractKey + " -f " + FarmerKey;
         }
     }
