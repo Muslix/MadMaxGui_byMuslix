@@ -5,6 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MadMaxGui.Controls" xmlns:viewmodels="clr-namespace:MadMaxGui.ViewModels" 
              xmlns:nav="clr-namespace:MadMaxGui.State.Navigators"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             TextElement.Foreground="{DynamicResource MaterialDesignPaper}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"
+             Background="{DynamicResource MaterialDesignBody}"
+             FontFamily="{DynamicResource MaterialDesignFont}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -12,8 +20,8 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="MadMax-Gui" Background="{StaticResource BrushPrimary1}"/>
-        <Grid Grid.Row="1" Background="{StaticResource BrushPrimary2}">
+        <TextBlock Grid.Row="0" Text="MadMax-Gui" Style="{DynamicResource MaterialDesignTitleTextBlock}"/>
+        <Grid Grid.Row="1" Background="{StaticResource BrushPrimary2}" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.2*"/>
                 <ColumnDefinition Width="0.2*"/>
@@ -21,9 +29,9 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <RadioButton Grid.Column="0" Content="Home" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Home}"/>
-            <RadioButton Grid.Column="1" Content="Settings" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Charakter}"/>
-            <RadioButton Grid.Column="2" Content="CommingSoon" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Stuff}"/>
+            <Button Grid.Column="0" Style="{StaticResource  MaterialDesignFlatDarkBgButton}" Content="Home" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Home}" Background="#FF131215"/>
+            <Button Grid.Column="1" Style="{StaticResource  MaterialDesignFlatDarkBgButton}" Foreground="{StaticResource BrushTextPrime}" Background="{StaticResource BrushPrimary1}" Content="Settings" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Charakter}"/>
+            <Button Grid.Column="2" Style="{StaticResource  MaterialDesignFlatDarkBgButton}" Foreground="{StaticResource BrushTextPrime}" Background="{StaticResource BrushPrimary1}" Content="CommingSoon" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Stuff}" Cursor="Hand"/>
         </Grid>
     </Grid>
 </UserControl>

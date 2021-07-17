@@ -18,8 +18,10 @@ namespace MadMaxGui.Commands
         IKernel kernel;
         public UpdateCurrentViewModelCommand(INavigator navigator, IKernel kernel)
         {
+
             this.navigator = navigator;
             this.kernel = kernel;
+            navigator.CurrentViewModel = kernel.Get<HomeViewModel>();
         }
 
         public bool CanExecute(object parameter)
