@@ -24,4 +24,4 @@ If you have feeback or requests for improvement, please let me know in the Issue
 ## Donate
 If you find these tools useful and want to donate you can use any of the below addresses.
 
-XCH: xch1xlsrczvnfzjfeg7ejpaxy7evcn0nvsr73s4gcmzdqd7zkzlvy8ds49qvv2
+XCH: xch1xhas90xv27269uqdxvflkf0y430txe5nm00vzq8vc33qqyzhc6rquhwgpa
