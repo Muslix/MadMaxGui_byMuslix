@@ -2,6 +2,12 @@
 
 A WPF based GUI that helps Chia Plotting
 
+## Usage
+
+- Go to Settings put your stuff there go back to home Load your Settings and Start the plotter. 
+
+ If the Start button is pressed two times it will start 2 instances of Madmax but only one will be updated in the view. ( i think ^^ ) 
+
 ## Download 
 
 Download Version 0.1 of the MadMaxGui Chia Plotter
