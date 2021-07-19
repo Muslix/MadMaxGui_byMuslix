@@ -29,6 +29,8 @@ namespace MadMaxGui
             this.kernel = new StandardKernel();
             kernel.Bind<ILoadSaveXml>().To<LoadSaveXml>().InSingletonScope();
             kernel.Bind<IHomeView>().To<HomeView>().InSingletonScope();
+            kernel.Bind<HomeViewModel>().ToSelf().InSingletonScope();
+            kernel.Bind<SettingsViewModel>().ToSelf().InSingletonScope();
         }
 
     }

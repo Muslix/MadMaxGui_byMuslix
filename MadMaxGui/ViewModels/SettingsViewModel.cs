@@ -4,6 +4,8 @@ using Microsoft.Win32;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Input;
+using System.Text.Json;
+using System.IO;
 
 namespace MadMaxGui.ViewModels
 {
@@ -142,37 +144,29 @@ namespace MadMaxGui.ViewModels
         }
 
         //Zum Laden der Settings 
-        private void LoadCommandExecute(object obj)
+        private async void LoadCommandExecute(object obj)
         {
             var s = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
             FileDialog fileDialog = new OpenFileDialog();
-            fileDialog.Filter = "Xml Files (*.xml)|*.xml|All files (*.*)|*.*";
+            fileDialog.Filter = "Json Files (*.json)|*.json|All files (*.*)|*.*";
             fileDialog.InitialDirectory = s;
             fileDialog.ShowDialog();
 
-            if (string.IsNullOrEmpty(fileDialog.FileName))
+            if (string.IsNullOrEmpty(fileDialog.FileName) || File.Exists(fileDialog.FileName))
                 return;
-            Config = loadSaveXml.loadData(fileDialog.FileName);
 
-            MadmaxDir = Config.MadmaxDir;
-            TempDir = Config.TempDir;
-            TempDir2 = Config.TempDir2;
-            FinalDir = Config.FinalDir;
-            FarmerKey = Config.FarmerKey;
-            ContractKey = Config.ContractKey;
-            Buckets = Config.Buckets;
-            BucketsPhaseThreeAndFour = Config.BucketsPhaseThreeAndFour;
-            Threads = Config.Threads;
-            NumberOfPlots = Config.NumberOfPLots;
+            await using var fs = new FileStream(fileDialog.FileName, FileMode.Open);
+            Config = await JsonSerializer.DeserializeAsync<Config>(fs);
+
         }
 
         //Zum Speichern der Settings
-        private void SaveCommandExecute(object obj)
+        private async void SaveCommandExecute(object obj)
         {
             var s = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             SaveFileDialog fileDialog = new SaveFileDialog();
-            fileDialog.Filter = "Xml Files (*.xml)|*.xml|All files (*.*)|*.*";
+            fileDialog.Filter = "Json Files (*.json)|*.json|All files (*.*)|*.*";
             fileDialog.InitialDirectory = s;
             fileDialog.ShowDialog();
             if (string.IsNullOrEmpty(fileDialog.FileName))
@@ -187,7 +181,10 @@ namespace MadMaxGui.ViewModels
             Config.BucketsPhaseThreeAndFour = BucketsPhaseThreeAndFour;
             Config.Threads = Threads;
             Config.NumberOfPLots = NumberOfPlots;
-            loadSaveXml.savedata(config, fileDialog.FileName);          
+            
+            var options = new JsonSerializerOptions() { WriteIndented = true };
+            await using var fs = new FileStream(fileDialog.FileName, FileMode.Create);
+            await JsonSerializer.SerializeAsync(fs, Config, options);
         }
 
         public override Config GetConfig()

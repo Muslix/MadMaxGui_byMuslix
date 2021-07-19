@@ -6,7 +6,7 @@ namespace MadMaxGui.State.Navigators
     public enum ViewType
     {
         Home,
-        Charakter,
+        Settings,
         Stuff
     }
     public interface INavigator

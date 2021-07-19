@@ -8,6 +8,8 @@ using System.Reflection;
 using System.Windows.Input;
 using MadMaxGui.Interfaces;
 using System.Linq;
+using System.IO;
+using System.Text.Json;
 
 namespace MadMaxGui.ViewModels
 {
@@ -23,9 +25,9 @@ namespace MadMaxGui.ViewModels
                 homeView.ScrollToEnd();
                 OnPropertyChanged();
             }
-                 
-        }     
-    
+
+        }
+
         private string madmaxParam;
         public string MadmaxParam
         {
@@ -35,7 +37,7 @@ namespace MadMaxGui.ViewModels
                 madmaxParam = value;
                 OnPropertyChanged();
             }
-                 
+
         }
         private Config config;
 
@@ -73,7 +75,7 @@ namespace MadMaxGui.ViewModels
         private readonly IHomeView homeView;
         public HomeViewModel(ILoadSaveXml loadSaveXml, IHomeView homeView)
         {
-            StartCommand = new RelayCommand(StartCommandExecute);     
+            StartCommand = new RelayCommand(StartCommandExecute);
             StopCommand = new RelayCommand(StopCommandExecute);
             LoadXmlCommand = new RelayCommand(LoadXmlCommandExecute);
             this.loadSaveXml = loadSaveXml;
@@ -82,28 +84,29 @@ namespace MadMaxGui.ViewModels
 
 
         //Setter
-        public override void SetConfig(Config config) 
+        public override void SetConfig(Config config)
         {
             Config = config;
             MadmaxParam = Creator.Create(Config);
         }
 
         //Commands
-        private void LoadXmlCommandExecute(object obj)
+        private async void LoadXmlCommandExecute(object obj)
         {
             var s = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
             FileDialog fileDialog = new OpenFileDialog();
-            fileDialog.Filter = "Xml Files (*.xml)|*.xml|All files (*.*)|*.*";
+            fileDialog.Filter = "Json Files (*.json)|*.json|All files (*.*)|*.*";
             fileDialog.InitialDirectory = s;
             fileDialog.ShowDialog();
 
             if (string.IsNullOrEmpty(fileDialog.FileName))
                 return;
-            Config = loadSaveXml.loadData(fileDialog.FileName);
+            await using var fs = new FileStream(fileDialog.FileName, FileMode.Open);
+            Config = await JsonSerializer.DeserializeAsync<Config>(fs);
             var strcut = fileDialog.FileName.Split(@"\").Last(); ;
             FileName = strcut;
-            MadmaxParam = Creator.Create(Config);       
+            MadmaxParam = Creator.Create(Config);
         }
 
         private void StopCommandExecute(object obj)
@@ -125,31 +128,27 @@ namespace MadMaxGui.ViewModels
         {
             if (MadmaxParam is null)
                 return;
-            myProcess = new Process
-            {
-                StartInfo = new ProcessStartInfo
-                {
-                    FileName = Config.MadmaxDir,
-                    Arguments = MadmaxParam,
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    CreateNoWindow = true
-                }
-            };
             try
             {
-                myProcess.StartInfo.UseShellExecute = false;
-                myProcess.StartInfo.RedirectStandardOutput = true;
-                myProcess.OutputDataReceived += p_OutputDataReceived;
-                myProcess.Start();
+                myProcess = Process.Start(
+                    new ProcessStartInfo
+                    {
+                        FileName = Config.MadmaxDir,
+                        Arguments = MadmaxParam,
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,
+                        CreateNoWindow = true
+                    }
+                );
+                myProcess.OutputDataReceived += p_OutputDataReceived;            
                 myProcess.BeginOutputReadLine();
-                ProcessId = myProcess.Id;             
-               
+                ProcessId = myProcess.Id;
+
             }
             catch (Exception ew)
             {
                 myProcess.Kill();
-                throw new(ew.Message);
+                throw new Exception(ew.Message);
             }
         }
 
@@ -158,11 +157,11 @@ namespace MadMaxGui.ViewModels
             MadMaxOutput += e.Data + "\n";
         }
 
-        public override void ContinueProcess(int id) 
-        {
-            myProcess = Process.GetProcessById(id);
-            myProcess.OutputDataReceived += p_OutputDataReceived;
-            myProcess.BeginOutputReadLine();
-        }
+        //public override void ContinueProcess(int id) 
+        //{
+        //    myProcess = Process.GetProcessById(id);
+        //    myProcess.OutputDataReceived += p_OutputDataReceived;
+        //    myProcess.BeginOutputReadLine();
+        //}
     }
 }
