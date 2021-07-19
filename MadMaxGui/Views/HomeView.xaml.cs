@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MadMaxGui.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +19,16 @@ namespace MadMaxGui.Views
     /// <summary>
     /// Interaktionslogik für HomeView.xaml
     /// </summary>
-    public partial class HomeView : UserControl
+    public partial class HomeView : UserControl, IHomeView
     {
         public HomeView()
         {
             InitializeComponent();
+        }
+
+        public void ScrollToEnd()
+        {
+            UITraceScroll.ScrollToBottom();
         }
     }
 }

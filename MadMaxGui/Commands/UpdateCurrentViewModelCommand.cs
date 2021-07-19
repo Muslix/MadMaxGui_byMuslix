@@ -34,6 +34,7 @@ namespace MadMaxGui.Commands
                 {
                     case ViewType.Home:
                         Config confTmp = null;
+                        var temp1 = navigator.CurrentViewModel.ProcessId;
                         if (navigator.CurrentViewModel is SettingsViewModel)
                         {                           
                             confTmp = navigator.CurrentViewModel.GetConfig();
@@ -44,10 +45,16 @@ namespace MadMaxGui.Commands
                             navigator.CurrentViewModel.SetConfig(confTmp);
                             
                         }
+                        if(temp1 != -1)
+                        {
+                            navigator.CurrentViewModel.ContinueProcess(temp1);
+                        }
                         
                         break;
                     case ViewType.Charakter:
+                        var temp = navigator.CurrentViewModel.ProcessId;
                         navigator.CurrentViewModel = kernel.Get <SettingsViewModel>();
+                        navigator.CurrentViewModel.ProcessId = temp;
                         break;
                     case ViewType.Stuff:
                         break;

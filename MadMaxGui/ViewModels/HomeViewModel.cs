@@ -6,6 +6,8 @@ using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Windows.Input;
+using MadMaxGui.Interfaces;
+using System.Linq;
 
 namespace MadMaxGui.ViewModels
 {
@@ -18,10 +20,12 @@ namespace MadMaxGui.ViewModels
             set
             {
                 madMaxOutput = value;
+                homeView.ScrollToEnd();
                 OnPropertyChanged();
             }
                  
         }     
+    
         private string madmaxParam;
         public string MadmaxParam
         {
@@ -45,6 +49,19 @@ namespace MadMaxGui.ViewModels
             }
 
         }
+        private string fileName;
+
+        public string FileName
+        {
+            get => fileName;
+            set
+            {
+                fileName = value;
+                OnPropertyChanged();
+            }
+
+        }
+
         public ParamCreator Creator = new ParamCreator();
 
         private Process myProcess;
@@ -53,12 +70,14 @@ namespace MadMaxGui.ViewModels
         public ICommand StopCommand { get; }
         public ICommand LoadXmlCommand { get; }
         private ILoadSaveXml loadSaveXml;
-        public HomeViewModel(ILoadSaveXml loadSaveXml) 
+        private readonly IHomeView homeView;
+        public HomeViewModel(ILoadSaveXml loadSaveXml, IHomeView homeView)
         {
             StartCommand = new RelayCommand(StartCommandExecute);     
             StopCommand = new RelayCommand(StopCommandExecute);
             LoadXmlCommand = new RelayCommand(LoadXmlCommandExecute);
             this.loadSaveXml = loadSaveXml;
+            this.homeView = homeView;
         }
 
 
@@ -82,7 +101,9 @@ namespace MadMaxGui.ViewModels
             if (string.IsNullOrEmpty(fileDialog.FileName))
                 return;
             Config = loadSaveXml.loadData(fileDialog.FileName);
-            MadmaxParam = Creator.Create(Config);           
+            var strcut = fileDialog.FileName.Split(@"\").Last(); ;
+            FileName = strcut;
+            MadmaxParam = Creator.Create(Config);       
         }
 
         private void StopCommandExecute(object obj)
@@ -121,7 +142,9 @@ namespace MadMaxGui.ViewModels
                 myProcess.StartInfo.RedirectStandardOutput = true;
                 myProcess.OutputDataReceived += p_OutputDataReceived;
                 myProcess.Start();
-                myProcess.BeginOutputReadLine();                 
+                myProcess.BeginOutputReadLine();
+                ProcessId = myProcess.Id;             
+               
             }
             catch (Exception ew)
             {
@@ -133,6 +156,13 @@ namespace MadMaxGui.ViewModels
         private void p_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             MadMaxOutput += e.Data + "\n";
+        }
+
+        public override void ContinueProcess(int id) 
+        {
+            myProcess = Process.GetProcessById(id);
+            myProcess.OutputDataReceived += p_OutputDataReceived;
+            myProcess.BeginOutputReadLine();
         }
     }
 }

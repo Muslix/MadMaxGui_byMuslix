@@ -9,6 +9,17 @@ namespace MadMaxGui.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private int processId = -1;
+        public int ProcessId
+        {
+            get => processId;
+            set
+            {
+                processId = value;
+                OnPropertyChanged();
+            }
+
+        }
         protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -19,6 +30,6 @@ namespace MadMaxGui.ViewModels
             return null;
         }
         public virtual void SetConfig(Config config) { }
-
+        public virtual void ContinueProcess(int id) { }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using DataAccessLayer;
 using Domain;
+using MadMaxGui.Interfaces;
 using MadMaxGui.ViewModels;
+using MadMaxGui.Views;
 using Ninject;
 using System.Windows;
 
@@ -26,6 +28,7 @@ namespace MadMaxGui
         {
             this.kernel = new StandardKernel();
             kernel.Bind<ILoadSaveXml>().To<LoadSaveXml>().InSingletonScope();
+            kernel.Bind<IHomeView>().To<HomeView>().InSingletonScope();
         }
 
     }
