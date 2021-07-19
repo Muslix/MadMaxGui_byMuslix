@@ -16,9 +16,13 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-        <WrapPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Button Content="Start" Margin="10" Height="30" Command="{Binding Path=StartCommand}"/>
+            <WrapPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button Content="Start" Margin="10" Height="30" Command="{Binding Path=StartCommand}"/>
                 <Button Content="Stop" Margin="10" Height="30" Command="{Binding Path=StopCommand}"/>
+                <StackPanel>
+                    <TextBlock Grid.Row="1" FontSize="15" Text="{Binding CpuCounterString,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Width="120"/>
+                    <TextBlock Grid.Row="1" FontSize="15" Text="{Binding RamCounterString,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Width="120"/>
+                </StackPanel>
             </WrapPanel>
             <WrapPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <TextBlock Grid.Row="1" FontSize="20" Text="{Binding FileName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Width="100"/>
@@ -27,7 +31,7 @@
         </Grid>
 
         <ScrollViewer Name="UITraceScroll" MaxHeight="400" Grid.Row="1">
-        <TextBlock Grid.Row="1" Text="{Binding MadMaxOutput,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBlock Grid.Row="1" Text="{Binding MadMaxOutput,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
         </ScrollViewer>
     </Grid>
 </UserControl>

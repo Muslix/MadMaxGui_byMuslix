@@ -45,11 +45,6 @@ namespace MadMaxGui.Commands
                             navigator.CurrentViewModel.SetConfig(confTmp);
                             
                         }
-                        //if (temp1 != -1)
-                        //{
-                        //    navigator.CurrentViewModel.ContinueProcess(temp1);
-                        //}
-
                         break;
                     case ViewType.Settings:
                         var temp = navigator.CurrentViewModel.ProcessId;

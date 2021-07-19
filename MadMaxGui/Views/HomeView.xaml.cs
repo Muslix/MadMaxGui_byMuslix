@@ -21,6 +21,7 @@ namespace MadMaxGui.Views
     /// </summary>
     public partial class HomeView : UserControl, IHomeView
     {
+
         public HomeView()
         {
             InitializeComponent();

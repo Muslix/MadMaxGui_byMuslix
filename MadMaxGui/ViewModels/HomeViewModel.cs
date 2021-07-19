@@ -10,6 +10,7 @@ using MadMaxGui.Interfaces;
 using System.Linq;
 using System.IO;
 using System.Text.Json;
+using System.Windows.Threading;
 
 namespace MadMaxGui.ViewModels
 {
@@ -52,13 +53,58 @@ namespace MadMaxGui.ViewModels
 
         }
         private string fileName;
-
         public string FileName
         {
             get => fileName;
             set
             {
                 fileName = value;
+                OnPropertyChanged();
+            }
+
+        }
+        private PerformanceCounter cpuCounter;
+        public PerformanceCounter CpuCounter
+        {
+            get => cpuCounter;
+            set
+            {
+                cpuCounter = value;
+               
+                OnPropertyChanged();
+            }
+
+        }
+        private PerformanceCounter ramCounter;
+        public PerformanceCounter RamCounter
+        {
+            get => ramCounter;
+            set
+            {
+                ramCounter = value;
+               
+                OnPropertyChanged();
+            }
+
+        }
+        private string cpuCounterString;
+        public string CpuCounterString
+        {
+            get => cpuCounterString;
+            set
+            {
+                cpuCounterString = value;
+                OnPropertyChanged();
+            }
+
+        }
+        private string ramCounterString;
+        public string RamCounterString
+        {
+            get => ramCounterString;
+            set
+            {
+                ramCounterString = value;
                 OnPropertyChanged();
             }
 
@@ -80,8 +126,26 @@ namespace MadMaxGui.ViewModels
             LoadXmlCommand = new RelayCommand(LoadXmlCommandExecute);
             this.loadSaveXml = loadSaveXml;
             this.homeView = homeView;
+
+            CpuCounter = new PerformanceCounter("Process", "% Processor Time", Process.GetCurrentProcess().ProcessName);
+            //RamCounter = new PerformanceCounter("Memory", "Available MBytes");
+            DispatcherTimerInit();
         }
 
+        private void DispatcherTimerInit()
+        {
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += timer_tick;
+            timer.Start();
+        }
+
+        private void timer_tick(object sender, EventArgs e)
+        {
+            CpuCounterString = "CPU: " + (int)cpuCounter.NextValue() + " %";
+            RamCounterString = "Ram: " + Process.GetCurrentProcess().PrivateMemorySize64 / 1024 / 1024  + " MB";
+            
+        }
 
         //Setter
         public override void SetConfig(Config config)
