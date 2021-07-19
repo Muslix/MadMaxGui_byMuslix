@@ -10,9 +10,9 @@ A WPF based GUI that helps Chia Plotting
 
 ## Download 
 
-Download Version 0.1 of the MadMaxGui Chia Plotter
+Download Version 0.2 of the MadMaxGui Chia Plotter
 
-https://github.com/Muslix/MadMaxGui_byMuslix/releases/tag/0.1
+https://github.com/Muslix/MadMaxGui_byMuslix/releases/tag/MadMaxGui_v0.2
 
 ## What it looks like
 [![Gui 1](https://i.ibb.co/5TCnrNs/Gui1.png)](https://ibb.co/mJdX9Lh)
