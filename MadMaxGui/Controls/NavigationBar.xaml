@@ -24,9 +24,9 @@
             <Button Style="{StaticResource  MaterialDesignFlatDarkBgButton}" Foreground="{StaticResource BrushTextPrime}" Background="{StaticResource BrushPrimary1}" BorderBrush="{x:Null}" Margin="10 0 0 0"
                     Content="Settings" Command="{Binding UpdateCurrentViewModelCommand}" 
                     CommandParameter="{x:Static nav:ViewType.Settings}" Cursor="Hand"/>
-            <!--<Button Style="{StaticResource  MaterialDesignFlatDarkBgButton}" Foreground="{StaticResource BrushTextPrime}" Background="{StaticResource BrushPrimary1}" BorderBrush="{x:Null}" Margin="10 0 0 0" 
-                    Content="CommingSoon" Command="{Binding UpdateCurrentViewModelCommand}" 
-                    CommandParameter="{x:Static nav:ViewType.Stuff}" Cursor="Hand"/>-->
+            <Button Style="{StaticResource  MaterialDesignFlatDarkBgButton}" Foreground="{StaticResource BrushTextPrime}" Background="{StaticResource BrushPrimary1}" BorderBrush="{x:Null}" Margin="10 0 0 0"
+                    Content="Check Plots" Command="{Binding UpdateCurrentViewModelCommand}" 
+                    CommandParameter="{x:Static nav:ViewType.CheckPlots}" Cursor="Hand"/>
         </WrapPanel>
     </StackPanel>
 </UserControl>

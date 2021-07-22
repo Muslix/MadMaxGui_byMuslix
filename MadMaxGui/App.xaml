@@ -23,6 +23,9 @@
             <DataTemplate DataType="{x:Type viewmodels:SettingsViewModel}">
                 <views:SettingsView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:CheckPlotsViewModel}">
+                <views:CheckPlotsView/>
+            </DataTemplate>
         </ResourceDictionary>
         
     </Application.Resources>

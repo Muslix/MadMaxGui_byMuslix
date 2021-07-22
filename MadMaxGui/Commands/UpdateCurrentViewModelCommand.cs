@@ -49,7 +49,8 @@ namespace MadMaxGui.Commands
                         navigator.CurrentViewModel = kernel.Get<SettingsViewModel>();
                         navigator.CurrentViewModel.ProcessId = temp;
                         break;
-                    case ViewType.Stuff:
+                    case ViewType.CheckPlots:
+                        navigator.CurrentViewModel = kernel.Get<CheckPlotsViewModel>();
                         break;
 
                 }

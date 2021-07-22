@@ -7,7 +7,7 @@ namespace MadMaxGui.State.Navigators
     {
         Home,
         Settings,
-        Stuff
+        CheckPlots
     }
     public interface INavigator
     {

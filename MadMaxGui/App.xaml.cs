@@ -33,6 +33,7 @@ namespace MadMaxGui
             kernel.Bind<IHomeView>().To<HomeView>().InSingletonScope();
             kernel.Bind<HomeViewModel>().ToSelf().InSingletonScope();
             kernel.Bind<SettingsViewModel>().ToSelf().InSingletonScope();
+            kernel.Bind<CheckPlotsView>().ToSelf().InSingletonScope();
         }
 
     }
