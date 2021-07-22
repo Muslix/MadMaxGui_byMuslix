@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Windows.Input;
 using System.Text.Json;
 using System.IO;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace MadMaxGui.ViewModels
 {
@@ -121,9 +122,9 @@ namespace MadMaxGui.ViewModels
             }
 
         }
-        private Config config = new ();
+        private Config config = new();
 
-        public Config Config 
+        public Config Config
         {
             get => config;
             set
@@ -135,37 +136,89 @@ namespace MadMaxGui.ViewModels
         }
         public ICommand SaveCommand { get; }
         public ICommand LoadCommand { get; }
+        public ICommand TempDirCommand { get; }
+        public ICommand TempDir2Command { get; }
+        public ICommand FinalDirCommand { get; }
         private readonly ILoadSaveXml loadSaveXml;
         public SettingsViewModel(ILoadSaveXml loadSaveXml)
         {
             SaveCommand = new RelayCommand(SaveCommandExecute);
             LoadCommand = new RelayCommand(LoadCommandExecute);
+            TempDirCommand = new RelayCommand(TempDirCommandExecute);
+            TempDir2Command = new RelayCommand(TempDir2CommandExecute);
+            FinalDirCommand = new RelayCommand(FinalDirCommandExecute);
             this.loadSaveXml = loadSaveXml;
+        }
+
+        private void FinalDirCommandExecute(object obj)
+        {
+            FinalDir = OpenFolder();
+        }
+
+        private void TempDir2CommandExecute(object obj)
+        {
+            TempDir2 = OpenFolder();
+        }
+
+        private void TempDirCommandExecute(object obj)
+        {
+            TempDir = OpenFolder();
+        }
+
+        private static string OpenFolder()
+        {
+            var currentFolder = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+
+            var dialog = new CommonOpenFileDialog
+            {
+                IsFolderPicker = true,
+                InitialDirectory = currentFolder
+            };
+            CommonFileDialogResult result = dialog.ShowDialog();
+            if (result == CommonFileDialogResult.Ok)
+            {
+                return dialog.FileName.EndsWith(@"\") ? dialog.FileName : dialog.FileName + @"\";
+            }
+            return "";
         }
 
         //Zum Laden der Settings 
         private async void LoadCommandExecute(object obj)
         {
-            var s = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            var s = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
-            FileDialog fileDialog = new OpenFileDialog();
-            fileDialog.Filter = "Json Files (*.json)|*.json|All files (*.*)|*.*";
-            fileDialog.InitialDirectory = s;
+            FileDialog fileDialog = new OpenFileDialog
+            {
+                Filter = "Json Files (*.json)|*.json|All files (*.*)|*.*",
+                InitialDirectory = s
+            };
             fileDialog.ShowDialog();
 
-            if (string.IsNullOrEmpty(fileDialog.FileName) || File.Exists(fileDialog.FileName))
+            if (string.IsNullOrEmpty(fileDialog.FileName) || !File.Exists(fileDialog.FileName))
                 return;
 
-            await using var fs = new FileStream(fileDialog.FileName, FileMode.Open);
-            Config = await JsonSerializer.DeserializeAsync<Config>(fs);
+
+
+            Config = await loadSaveXml.LoadData(fileDialog.FileName);
+
+            MadmaxDir = Config.MadmaxDir;
+            TempDir = Config.TempDir;
+            TempDir2 = Config.TempDir2;
+            FinalDir = Config.FinalDir;
+            FarmerKey = Config.FarmerKey;
+            ContractKey = Config.ContractKey;
+            Buckets = Config.Buckets;
+            BucketsPhaseThreeAndFour = Config.BucketsPhaseThreeAndFour;
+            Threads = Config.Threads;
+            NumberOfPlots = Config.NumberOfPLots;
 
         }
 
         //Zum Speichern der Settings
-        private async void SaveCommandExecute(object obj)
+        private void SaveCommandExecute(object obj)
         {
             var s = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
-            SaveFileDialog fileDialog = new SaveFileDialog();
+            SaveFileDialog fileDialog = new();
             fileDialog.Filter = "Json Files (*.json)|*.json|All files (*.*)|*.*";
             fileDialog.InitialDirectory = s;
             fileDialog.ShowDialog();
@@ -181,10 +234,8 @@ namespace MadMaxGui.ViewModels
             Config.BucketsPhaseThreeAndFour = BucketsPhaseThreeAndFour;
             Config.Threads = Threads;
             Config.NumberOfPLots = NumberOfPlots;
-            
-            var options = new JsonSerializerOptions() { WriteIndented = true };
-            await using var fs = new FileStream(fileDialog.FileName, FileMode.Create);
-            await JsonSerializer.SerializeAsync(fs, Config, options);
+
+            loadSaveXml.Savedata(Config, fileDialog.FileName);
         }
 
         public override Config GetConfig()

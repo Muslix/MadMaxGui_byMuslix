@@ -10,8 +10,8 @@ namespace MadMaxGui.Commands
     public class UpdateCurrentViewModelCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
-        private INavigator navigator;
-        IKernel kernel;
+        private readonly INavigator navigator;
+        private readonly IKernel kernel;
         public UpdateCurrentViewModelCommand(INavigator navigator, IKernel kernel)
         {
 
@@ -27,33 +27,31 @@ namespace MadMaxGui.Commands
 
         public void Execute(object parameter)
         {
-            if(parameter is ViewType)
+            if (parameter is ViewType viewType)
             {
-                ViewType viewType = (ViewType)parameter;
                 switch (viewType)
                 {
                     case ViewType.Home:
                         Config confTmp = null;
-                        var temp1 = navigator.CurrentViewModel.ProcessId;
                         if (navigator.CurrentViewModel is SettingsViewModel)
-                        {                           
+                        {
                             confTmp = navigator.CurrentViewModel.GetConfig();
                         }
-                           navigator.CurrentViewModel = kernel.Get<HomeViewModel>();
+                        navigator.CurrentViewModel = kernel.Get<HomeViewModel>();
                         if (confTmp != null)
                         {
                             navigator.CurrentViewModel.SetConfig(confTmp);
-                            
+
                         }
                         break;
                     case ViewType.Settings:
                         var temp = navigator.CurrentViewModel.ProcessId;
-                        navigator.CurrentViewModel = kernel.Get <SettingsViewModel>();
+                        navigator.CurrentViewModel = kernel.Get<SettingsViewModel>();
                         navigator.CurrentViewModel.ProcessId = temp;
                         break;
                     case ViewType.Stuff:
                         break;
-                   
+
                 }
             }
         }

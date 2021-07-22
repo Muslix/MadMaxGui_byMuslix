@@ -18,8 +18,10 @@ namespace MadMaxGui
         {
            
             ConfigureContainer();
-            Window window = new MainWindow();
-            window.DataContext = kernel.Get<MainViewModel>();
+            Window window = new MainWindow
+            {
+                DataContext = kernel.Get<MainViewModel>()
+            };
             window.Show();
 
             base.OnStartup(e);

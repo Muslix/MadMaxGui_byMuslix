@@ -5,12 +5,15 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <RootNamespace>MadMaxGui</RootNamespace>
     <UseWPF>true</UseWPF>
+    <NoWarn>NU1701,CS0067</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="MaterialDesignColors" Version="2.0.1" />
     <PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
     <PackageReference Include="Ninject" Version="3.3.4" />
+    <PackageReference Include="WindowsAPICodePack-Shell" Version="1.1.1"/>
+
   </ItemGroup>
 
   <ItemGroup>

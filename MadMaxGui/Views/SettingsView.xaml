@@ -33,16 +33,34 @@
                          Text="{Binding FarmerKey,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
                          Width="700" HorizontalAlignment="Left" Cursor="IBeam"/>
             </StackPanel>
-            <StackPanel Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center">
-                <TextBox Grid.Row="0" materialDesign:HintAssist.Hint="TempDir" Style="{StaticResource MaterialDesignFloatingHintTextBox}" BorderBrush="{StaticResource BrushTextPrime}" 
+            <StackPanel Grid.Row="0" Grid.Column="1">
+                    <WrapPanel>
+                        <TextBox Grid.Row="0" materialDesign:HintAssist.Hint="TempDir" Style="{StaticResource MaterialDesignFloatingHintTextBox}" BorderBrush="{StaticResource BrushTextPrime}" 
                          Text="{Binding TempDir,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
-                         Width="300" HorizontalAlignment="Left"/>
-                <TextBox Grid.Row="0" materialDesign:HintAssist.Hint="TempDir2" Style="{StaticResource MaterialDesignFloatingHintTextBox}" BorderBrush="{StaticResource BrushTextPrime}" 
+                         Width="250" HorizontalAlignment="Left"/>
+                        <Button Grid.Row="0" Grid.Column="2" Style="{StaticResource  MaterialDesignFlatDarkBgButton}"  BorderBrush="{x:Null}"  Background="{StaticResource BrushPrimary2}" VerticalAlignment="Bottom"
+                        Width="50" Height="25" Command="{Binding Path=TempDirCommand}">
+                            <materialDesign:PackIcon Kind="Folder" Foreground="{StaticResource BrushButtonPrime2}" Width="25" Height="25" />
+                        </Button>
+                    </WrapPanel>
+                    <WrapPanel>
+                        <TextBox Grid.Row="0" materialDesign:HintAssist.Hint="TempDir2" Style="{StaticResource MaterialDesignFloatingHintTextBox}" BorderBrush="{StaticResource BrushTextPrime}" 
                          Text="{Binding TempDir2,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
-                         Width="300" HorizontalAlignment="Left"/>
-                <TextBox Grid.Row="0" materialDesign:HintAssist.Hint="FinalDir" Style="{StaticResource MaterialDesignFloatingHintTextBox}" BorderBrush="{StaticResource BrushTextPrime}"
+                         Width="250" HorizontalAlignment="Left"/>
+                        <Button Grid.Row="0" Grid.Column="2" Style="{StaticResource  MaterialDesignFlatDarkBgButton}"  BorderBrush="{x:Null}"  Background="{StaticResource BrushPrimary2}" VerticalAlignment="Bottom"
+                        Width="50" Height="25" Command="{Binding Path=TempDir2Command}" Cursor="Hand" >
+                            <materialDesign:PackIcon Kind="Folder" Foreground="{StaticResource BrushButtonPrime2}" Width="30" Height="30" />
+                        </Button>
+                    </WrapPanel>
+                    <WrapPanel>
+                   <TextBox Grid.Row="0" materialDesign:HintAssist.Hint="FinalDir" Style="{StaticResource MaterialDesignFloatingHintTextBox}" BorderBrush="{StaticResource BrushTextPrime}"
                          Text="{Binding FinalDir,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
-                         Width="300" HorizontalAlignment="Left" Cursor="IBeam"/>
+                         Width="250" HorizontalAlignment="Left"/>
+                        <Button Grid.Row="0" Grid.Column="2" Style="{StaticResource  MaterialDesignFlatDarkBgButton}"  BorderBrush="{x:Null}"  Background="{StaticResource BrushPrimary2}" VerticalAlignment="Bottom"
+                        Width="50" Height="25" Command="{Binding Path=FinalDirCommand}" >
+                            <materialDesign:PackIcon Kind="Folder" Foreground="{StaticResource BrushButtonPrime2}" Width="25" Height="25" />
+                        </Button>
+                    </WrapPanel>
             </StackPanel>
             <StackPanel Grid.Row="0" Grid.Column="3">
                 <Button Grid.Row="0" Grid.Column="3" Style="{StaticResource  MaterialDesignFlatDarkBgButton}"  BorderBrush="{x:Null}" Foreground="{StaticResource BrushTextPrime}" Background="{StaticResource BrushButtonPrime2}"

@@ -110,14 +110,14 @@ namespace MadMaxGui.ViewModels
 
         }
 
-        public ParamCreator Creator = new ParamCreator();
+        public ParamCreator Creator = new ();
 
         private Process myProcess;
 
         public ICommand StartCommand { get; }
         public ICommand StopCommand { get; }
         public ICommand LoadXmlCommand { get; }
-        private ILoadSaveXml loadSaveXml;
+        private readonly ILoadSaveXml loadSaveXml;
         private readonly IHomeView homeView;
         public HomeViewModel(ILoadSaveXml loadSaveXml, IHomeView homeView)
         {
@@ -128,19 +128,18 @@ namespace MadMaxGui.ViewModels
             this.homeView = homeView;
 
             CpuCounter = new PerformanceCounter("Process", "% Processor Time", Process.GetCurrentProcess().ProcessName);
-            //RamCounter = new PerformanceCounter("Memory", "Available MBytes");
             DispatcherTimerInit();
         }
 
         private void DispatcherTimerInit()
         {
-            DispatcherTimer timer = new DispatcherTimer();
+            DispatcherTimer timer = new();
             timer.Interval = TimeSpan.FromSeconds(1);
-            timer.Tick += timer_tick;
+            timer.Tick += Timer_tick;
             timer.Start();
         }
 
-        private void timer_tick(object sender, EventArgs e)
+        private void Timer_tick(object sender, EventArgs e)
         {
             CpuCounterString = "CPU: " + (int)cpuCounter.NextValue() + " %";
             RamCounterString = "Ram: " + Process.GetCurrentProcess().PrivateMemorySize64 / 1024 / 1024  + " MB";
@@ -157,17 +156,18 @@ namespace MadMaxGui.ViewModels
         //Commands
         private async void LoadXmlCommandExecute(object obj)
         {
-            var s = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            var s = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
 
-            FileDialog fileDialog = new OpenFileDialog();
-            fileDialog.Filter = "Json Files (*.json)|*.json|All files (*.*)|*.*";
-            fileDialog.InitialDirectory = s;
+            FileDialog fileDialog = new OpenFileDialog
+            {
+                Filter = "Json Files (*.json)|*.json|All files (*.*)|*.*",
+                InitialDirectory = s
+            };
             fileDialog.ShowDialog();
 
             if (string.IsNullOrEmpty(fileDialog.FileName))
-                return;
-            await using var fs = new FileStream(fileDialog.FileName, FileMode.Open);
-            Config = await JsonSerializer.DeserializeAsync<Config>(fs);
+                return;         
+            Config = await loadSaveXml.LoadData(fileDialog.FileName);
             var strcut = fileDialog.FileName.Split(@"\").Last(); ;
             FileName = strcut;
             MadmaxParam = Creator.Create(Config);
@@ -204,7 +204,7 @@ namespace MadMaxGui.ViewModels
                         CreateNoWindow = true
                     }
                 );
-                myProcess.OutputDataReceived += p_OutputDataReceived;            
+                myProcess.OutputDataReceived += P_OutputDataReceived;            
                 myProcess.BeginOutputReadLine();
                 ProcessId = myProcess.Id;
 
@@ -216,7 +216,7 @@ namespace MadMaxGui.ViewModels
             }
         }
 
-        private void p_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        private void P_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             MadMaxOutput += e.Data + "\n";
         }

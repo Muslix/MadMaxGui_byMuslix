@@ -1,10 +1,12 @@
 ﻿
 
+using System.Threading.Tasks;
+
 namespace Domain
 {
     public interface ILoadSaveXml
     {
-        void savedata(object obj, string filename);
-        Config loadData(string filename);
+        void Savedata(Config config, string filename);
+        Task<Config> LoadData(string filename);
     }
 }

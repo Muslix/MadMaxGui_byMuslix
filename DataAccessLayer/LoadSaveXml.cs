@@ -1,26 +1,24 @@
 ﻿using Domain;
 using System.IO;
+using System.Text.Json;
+using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace DataAccessLayer
 {
     public class LoadSaveXml : ILoadSaveXml
     {
-        public Config loadData(string filename)
+        public async Task<Config> LoadData(string filename)
         {
-            XmlSerializer sr = new XmlSerializer(typeof(Config));
-            TextReader reader = new StreamReader(filename);
-            Config test = (Config)sr.Deserialize(reader);
-            reader.Close();
-            return test;
+            await using var fs = new FileStream(filename, FileMode.Open);
+            return await JsonSerializer.DeserializeAsync<Config>(fs);
         }
 
-        public void savedata(object obj, string filename)
+        public async void Savedata(Config config, string filename)
         {
-            XmlSerializer sr = new XmlSerializer(obj.GetType());
-            TextWriter writer = new StreamWriter(filename);
-            sr.Serialize(writer, obj);
-            writer.Close();
+            var options = new JsonSerializerOptions() { WriteIndented = true };
+            await using var fs = new FileStream(filename, FileMode.Create);
+            await JsonSerializer.SerializeAsync(fs, config, options);
         }
     }
 }
