@@ -19,15 +19,12 @@ namespace MadMaxGui.Views
     /// <summary>
     /// Interaktionslogik für CheckPlotsView.xaml
     /// </summary>
-    public partial class CheckPlotsView : UserControl, IHomeView
+    public partial class CheckPlotsView : UserControl
     {
         public CheckPlotsView()
         {
             InitializeComponent();
         }
-        public void ScrollToEnd()
-        {
-            UITraceScroll.ScrollToBottom();
-        }
+     
     }
 }

@@ -5,6 +5,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MadMaxGui.Views"
+             xmlns:helper="clr-namespace:MadMaxGui.Helper"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid ShowGridLines="true">
@@ -17,23 +18,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <WrapPanel Grid.Row="0" Margin="40">
-                <TextBox  materialDesign:HintAssist.Hint="Choose Chia Daemon Path" Style="{StaticResource MaterialDesignFloatingHintTextBox}" BorderBrush="{StaticResource BrushTextPrime}" 
-                         Text="{Binding DaemonFolder,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" 
-                         Width="250" HorizontalAlignment="Left" Cursor="IBeam">
-                    <TextBox.ToolTip>
-                        <ToolTip>
 
-                            <TextBlock Text="Example: C:\Users\your_username\AppData\Local\chia-blockchain\app-1.1.2\resources\app.asar.unpacked\daemon>"/>
-                            <!-- tooltip content -->
-                        </ToolTip>
-                    </TextBox.ToolTip>
-                </TextBox>
-                <Button Grid.Row="0" Grid.Column="0" Style="{StaticResource  MaterialDesignFlatDarkBgButton}"  BorderBrush="{x:Null}"  Background="{StaticResource BrushPrimary2}" VerticalAlignment="Bottom"
-                        Width="50" Height="25" Command="{Binding Path=DaemonPathCommand}" Cursor="Hand" >
-                    <materialDesign:PackIcon Kind="Folder" Foreground="{StaticResource BrushButtonPrime2}" Width="30" Height="30" />
-                </Button>
-            </WrapPanel>
             <WrapPanel Grid.Row="0" Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Right" >
             <Button Grid.Row="0" Grid.Column="1" Style="{StaticResource  MaterialDesignFlatDarkBgButton}"  BorderBrush="{x:Null}" Foreground="{StaticResource BrushTextPrime}"  Background="{StaticResource BrushButtonPrime2}" Margin="0"
                    Content="Start" Width="100" Height="25" Command="{Binding Path=StartCommand}" Cursor="Hand"/>  
@@ -41,8 +26,8 @@
                    Content="Stop" Width="100" Height="25" Command="{Binding Path=StopCommand}" Cursor="Hand"/>
             </WrapPanel>
         </Grid>
-        
-        <ScrollViewer Name="UITraceScroll" MaxHeight="600" Grid.Row="1">
+
+        <ScrollViewer MaxHeight="600" Grid.Row="1">
             <TextBlock Grid.Row="1" Text="{Binding PlotsCheckOutput,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
         </ScrollViewer>
     </Grid>

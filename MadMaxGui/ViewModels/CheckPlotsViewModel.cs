@@ -23,8 +23,7 @@ namespace MadMaxGui.ViewModels
             set
             {
                 daemonFolder = value;
-                OnPropertyChanged();
-                homeView.ScrollToEnd();
+                OnPropertyChanged();               
             }
 
         }
@@ -40,22 +39,20 @@ namespace MadMaxGui.ViewModels
 
         }
 
-       
-        
+
+
         private Process myProcess;
-        private readonly IHomeView homeView;
         public ICommand StartCommand { get; }
         public ICommand StopCommand { get; }
         public ICommand DaemonPathCommand { get; }
-        
+
         private readonly ILoadSaveXml loadSaveXml;
-        public CheckPlotsViewModel(ILoadSaveXml loadSaveXml, IHomeView homeView)
+        public CheckPlotsViewModel(ILoadSaveXml loadSaveXml)
         {
             StartCommand = new RelayCommand(StartCommandExecute);
             StopCommand = new RelayCommand(StopCommandExecute);
             DaemonPathCommand = new RelayCommand(DaemonPathCommandExecute);
             this.loadSaveXml = loadSaveXml;
-            this.homeView = homeView;
         }
 
         private void DaemonPathCommandExecute(object obj)
@@ -66,13 +63,13 @@ namespace MadMaxGui.ViewModels
         private void StartCommandExecute(object obj)
         {
             var path = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)
-                ,"chia-blockchain"
-                ,"app-1.2.3"
+                , "chia-blockchain"
+                , "app-1.2.3"
                 , "resources"
-                ,"app.asar.unpacked"
-                ,"daemon","chia.exe");
-           
-               if (!File.Exists(path))
+                , "app.asar.unpacked"
+                , "daemon");
+
+            if (!Directory.Exists(path))
                 return;
 
             try
@@ -80,24 +77,34 @@ namespace MadMaxGui.ViewModels
                 myProcess = Process.Start(
                     new ProcessStartInfo
                     {
-                        FileName = path,
-                        Arguments = " plots check",
+                        FileName = @"cmd",
+                        WorkingDirectory = path + @"\",
+                        //   Arguments = "cd "+ path,
                         UseShellExecute = false,
                         RedirectStandardOutput = true,
                         RedirectStandardInput = true,
+                        RedirectStandardError = true,
                         CreateNoWindow = true
                     }
                 );
+
+                myProcess.StandardInput.WriteLine("chia plots check");
                 myProcess.OutputDataReceived += P_OutputDataReceived;
-             
+                myProcess.ErrorDataReceived += P_ErrorDataReceived;
+
                 myProcess.BeginOutputReadLine();
-              
+                myProcess.BeginErrorReadLine();
             }
             catch (Exception ew)
             {
                 myProcess.Kill();
                 throw new Exception(ew.Message);
             }
+        }
+
+        private void P_ErrorDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            PlotsCheckOutput += e.Data + "\n";
         }
 
         private void StopCommandExecute(object obj)
