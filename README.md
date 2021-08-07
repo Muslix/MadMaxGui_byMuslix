@@ -21,7 +21,12 @@ https://github.com/Muslix/MadMaxGui_byMuslix/releases/tag/MadMaxGui_v0.2
 
 ## Roadmap
 
-- Coming Soon!!
+- Check Plots (In Progress)
+- Better UI for current Plotting progress 
+- UI for plotting history
+- Staggering (multi plotting)
+- Db for saving Plot stats
+- 
 
 ## Feedback
 
