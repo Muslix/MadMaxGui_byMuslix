@@ -67,7 +67,7 @@ namespace MadMaxGui.ViewModels
         {
             var path = Path.Join(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)
                 ,"chia-blockchain"
-                ,"app-1.2.1"
+                ,"app-1.2.3"
                 , "resources"
                 ,"app.asar.unpacked"
                 ,"daemon","chia.exe");
